@@ -44,7 +44,7 @@ step (Mult (Num n1) (Num n2)) = Num (n1 * n2)
 step (Mult (Num n) e) = Mult (Num n) (step e)
 step (Mult e1 e2) = Mult (step e1) e2
 
-step (Sub (Num n1) (Num n2)) = Num (n1 * n2)
+step (Sub (Num n1) (Num n2)) = Num (n1 - n2)
 step (Sub (Num n) e) = Sub (Num n) (step e)
 step (Sub e1 e2) = Sub (step e1) e2
 

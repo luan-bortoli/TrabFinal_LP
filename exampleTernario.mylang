@@ -1,0 +1,3 @@
+parser $ lexer "( 2==3 ) ? 2 : 3
+parser $ lexer "( 2==3 ) ? true : false"
+parser $ lexer "( 2==3 ) ? sim : false"

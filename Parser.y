@@ -53,7 +53,7 @@ Exp         : num                           { Num $1 }
             | Exp "&&" Exp                  { And $1 $3 }
             | Exp "||" Exp                  { Or $1 $3 }
             | '!' Exp                       { Not $2 }
-            | Exp "==" Exp                  { Eq $1 $3 }
+            | Exp "==" Exp                  { Equal $1 $3 }
             | Exp "/=" Exp                  { Dif $1 $3 }
             | Exp "<" Exp                   { Men $1 $3 }
             | Exp ">" Exp                   { Mai $1 $3 }

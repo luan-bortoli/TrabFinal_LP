@@ -966,7 +966,7 @@ happyReduction_10 (HappyAbsSyn4  happy_var_3)
 	_
 	(HappyAbsSyn4  happy_var_1)
 	 =  HappyAbsSyn4
-		 (Eq happy_var_1 happy_var_3
+		 (Equal happy_var_1 happy_var_3
 	)
 happyReduction_10 _ _ _  = notHappyAtAll 
 

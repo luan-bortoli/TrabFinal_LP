@@ -11,7 +11,7 @@ data Expr = BTrue
           | And Expr Expr
           | Or Expr Expr
           | Not Expr
-          | Eq Expr Expr
+          | Equal Expr Expr
           | Dif Expr Expr
           | Men Expr Expr
           | Mai Expr Expr

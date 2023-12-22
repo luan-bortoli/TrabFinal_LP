@@ -22,8 +22,8 @@ subst x n (Sub e1 e2) = Sub (subst x n e1) (subst x n e2) --Subtração
 subst x n (Mult e1 e2) = Mult (subst x n e1) (subst x n e2) -- Multiplicação
 subst x n (And e1 e2) = And (subst x n e1) (subst x n e2) -- And &&
 subst x n (Or e1 e2) = Or (subst x n e1) (subst x n e2)  -- Or ||
-subst x n (Not e1) = Not (subst x n e) -- Not
-subst x n (Eq e1 e2) = Eq (subst x n e1) (subst x n e2) -- Iqual
+subst x n (Not e) = Not (subst x n e) -- Not
+subst x n (Equal e1 e2) = Equal (subst x n e1) (subst x n e2) -- Iqual
 subst x n (Dif e1 e2) = Dif (subst x n e1) (subst x n e2) -- Diferente
 subst x n (Men e1 e2) = Men (subst x n e1) (subst x n e2) -- Menor
 subst x n (Mai e1 e2) = Mai (subst x n e1) (subst x n e2) -- Maior
@@ -63,21 +63,17 @@ step (Not BTrue) = BFalse
 step (Not BFalse) = BTrue
 step (Not e) = Not (step e)
 
-step (Eq (Num e1) (Num e2)) | (e1 == e2) = BTrue
+step (Equal (Num e1) (Num e2)) | (e1 == e2) = BTrue
                             | otherwise = BFalse
-step (Eq (Num e1) e2) = Eq (Num e1) (step e2)
-step (Eq e1 (Num e2)) = Eq (step e1) (Num e2)
-step (Eq e1 e2) | isBool e1 && isBool e2 = if (e1 == e2) then BTrue else BFalse
-                | isBool e1 = Eq e1 (step e2)
-                | otherwise = Eq (step e1) e2
+step (Equal (Num e1) e2) = Equal (Num e1) (step e2)
+step (Equal e1 (Num e2)) = Equal (step e1) (Num e2)
+step (Equal e1 e2) = Equal (step e1) e2
 
 step (Dif (Num e1) (Num e2)) | (e1 /= e2) = BTrue
                              | otherwise = BFalse
 step (Dif (Num e1) e2) = Dif (Num e1) (step e2)
 step (Dif e1 (Num e2)) = Dif (step e1) (Num e2)
-step (Dif e1 e2) | isBool e1 && isBool e2 = if (e1 /= e2) then BTrue else BFalse
-                 | isBool e1 = Dif e1 (step e2)
-                 | otherwise = Dif (step e1) e2
+step (Dif e1 e2) = Dif (step e1) e2
 
 step (Men (Num e1) (Num e2)) | (e1 < e2) = BTrue
                              | otherwise = BFalse

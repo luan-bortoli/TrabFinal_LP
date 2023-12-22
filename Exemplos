@@ -1,0 +1,66 @@
+Exemplos:
+
+lexer "( 10 == 4 ) ? true : false"
+// [TokenLParen, TokenNum 10, TokenEqual, Token Num 4, TokenRParen, TokenTernarioInter, TokenTrue, TokenColon, TokenFalse]
+
+parser $ lexer "( 2==3 ) ? 2 : 3"
+// Ternario (Equal (Num 2) (Num 3)) (Num 2) (Num 3)
+
+parser $ lexer "( 3==3 ) ? true : false"
+// Ternario (Equal (Num 3) (Num 3)) BTrue BFalse
+
+print $ eval $ typecheck $ parser $ lexer "( 2==3 ) ? 2 : 3"
+// Num 3
+
+print $ eval $ typecheck $ parser $ lexer "( 2==3 ) ? true : false"
+// BFalse
+
+print $ eval $ typecheck $ parser $ lexer "5 * 5"
+eval $ typecheck $ parser $ lexer "5 * 5"
+// Num 25
+
+typecheck $ parser $ lexer "5 * 5"
+parser $ lexer "5 * 5"
+// Mult (Num 5) (Num 5)
+
+lexer "5 * 5"
+// [TokenNum 5, TokenMult, TokenNum 5]
+
+lexer "4 - 5"
+// [TokenNum 4, TokenSub, TokenNum 5]
+
+parser $ lexer "4 - 5"
+// Sub (Num 4) (Num 5)
+
+print $ eval $ typecheck $ parser $ lexer "4 - 5"
+// Num(-1)
+
+print $ eval $ typecheck $ parser $ lexer "!true"
+// BFalse
+
+print $ eval $ typecheck $ parser $ lexer "4 > 5"
+// BFalse
+
+print $ eval $ typecheck $ parser $ lexer "4 >= 5"
+// BFalse
+
+print $ eval $ typecheck $ parser $ lexer "4 < 5"
+// BTrue
+
+print $ eval $ typecheck $ parser $ lexer "4 <= 5"
+// BTrue
+
+print $ eval $ typecheck $ parser $ lexer "4 == 5"
+// BFalse
+
+print $ eval $ typecheck $ parser $ lexer "4 /= 5"
+// BTrue
+
+print $ eval $ typecheck $ parser $ lexer "( 2/=3 ) ? 2 : 3"
+// Num 2
+
+print $ eval $ typecheck $ parser $ lexer "( 2/=3 ) ? true : false"
+// BTrue
+
+print $ eval $ typecheck $ parser $ lexer "( 2==3 ) ? true : false"
+// BFalse

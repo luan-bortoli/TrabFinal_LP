@@ -36,12 +36,10 @@ typeof ctx (Not e) = case (typeof ctx e) of
 
 typeof ctx (Equal e1 e2) = case (typeof ctx e1, typeof ctx e2) of 
                        (Just TNum, Just TNum)   -> Just TBool
-                       (Just TBool, Just TBool) -> Just TBool 
                        _                        -> Nothing
 
 typeof ctx (Dif e1 e2) = case (typeof ctx e1, typeof ctx e2) of 
                        (Just TNum, Just TNum)   -> Just TBool
-                       (Just TBool, Just TBool) -> Just TBool 
                        _                        -> Nothing
 
 typeof ctx (Men e1 e2) = case (typeof ctx e1, typeof ctx e2) of 

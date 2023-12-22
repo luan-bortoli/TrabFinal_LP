@@ -64,3 +64,24 @@ print $ eval $ typecheck $ parser $ lexer "( 2/=3 ) ? true : false"
 
 print $ eval $ typecheck $ parser $ lexer "( 2==3 ) ? true : false"
 // BFalse
+
+typecheck $ parser $ lexer "( 2/=3 ) ? true : false"
+// Ternario (Dif (Num 2) (Num 3)) BTrue BFalse
+
+lexer "( 2/=3 ) ? true : false"
+// [TokenLParen, TokenNum 2, TokenDif, Token Num 3, TokenRParen, TokenTernarioInter, TokenTrue, TokenColon, TokenFalse]
+
+lexer "( 2>=3 ) ? true : false"
+// [TokenLParen, TokenNum 2, TokenMaiEq, Token Num 3, TokenRParen, TokenTernarioInter, TokenTrue, TokenColon, TokenFalse]
+
+lexer "( 2>=3 ) ? sim : nao"
+// [TokenLParen, TokenNum 2, TokenMaiEq, Token Num 3, TokenRParen, TokenTernarioInter, TokenVar "sim", TokenColon, TokenVar "nao"]
+
+parser $ lexer "( 2>=3 ) ? sim : nao"
+//Ternario (MaiEq (Num 2) (Num 3)) (Var "sim") (Var "nao")
+
+typecheck $ parser $ lexer "( 2>=3 ) ? sim : nao"
+//Ternario (MaiEq (Num 2) (Num 3)) (Var "sim") (Var "nao")
+
+eval $ typecheck $ parser $ lexer "( 2>=3 ) ? 2 : 3"
+//Num 3
